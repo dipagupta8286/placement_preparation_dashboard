@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Performance Analytics</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<header>
+
+    <h1>Placement Preparation Dashboard</h1>
+
+    <nav>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/companies">Companies</a>
+        <a href="/coding-tracker">Coding Tracker</a>
+        <a href="/quiz">Aptitude Quiz</a>
+        <a href="/resume">Resume</a>
+        <a href="/reminders">Reminders</a>
+        <a href="/profile">Profile</a>
+        <a href="/analytics">Analytics</a>
+        <a href="/logout">Logout</a>
+    </nav>
+
+</header>
+
+
+<div class="container">
+
+    <section class="hero">
+
+        <h2>📊 Performance Analytics</h2>
+
+        <p>
+            Analyze your placement preparation performance.
+        </p>
+
+    </section>
+
+    <br>
+
+
+    <!-- Overall Statistics -->
+
+    <div class="cards">
+
+        <div class="card">
+
+            <h3>📝 Quiz Attempts</h3>
+
+            <h2>
+                {{ overall[0] }}
+            </h2>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>📈 Average Score</h3>
+
+            <h2>
+                {{ overall[1] }}%
+            </h2>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>🏆 Highest Score</h3>
+
+            <h2>
+                {{ overall[2] }}
+            </h2>
+
+        </div>
+
+    </div>
+
+    <br>
+
+
+    <!-- Subject Performance -->
+
+    <section class="hero">
+
+        <h2>📚 Subject-wise Performance</h2>
+
+        <br>
+
+        {% if subject_performance %}
+
+        <table border="1"
+               width="100%"
+               cellpadding="10">
+
+            <thead>
+
+                <tr>
+
+                    <th>Subject</th>
+
+                    <th>Attempts</th>
+
+                    <th>Average Percentage</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for subject in subject_performance %}
+
+                <tr>
+
+                    <td>
+                        {{ subject[0] }}
+                    </td>
+
+                    <td>
+                        {{ subject[1] }}
+                    </td>
+
+                    <td>
+                        {{ subject[2] }}%
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+        {% else %}
+
+        <p>
+            📚 No quiz data available yet.
+        </p>
+
+        <p>
+            Take some quizzes to see your performance here.
+        </p>
+
+        {% endif %}
+
+    </section>
+    <br>
+
+<section class="hero">
+
+    <h2>⚠️ Recommended Practice</h2>
+
+    <br>
+
+    {% if weak_subjects %}
+
+        <p>
+            These subjects currently have an average score below 60%.
+        </p>
+
+        <br>
+
+        {% for subject in weak_subjects %}
+
+            <div class="card">
+
+                <h3>
+                    📚 {{ subject[0] }}
+                </h3>
+
+                <p>
+                    Average Score:
+                    <strong>{{ subject[2] }}%</strong>
+                </p>
+
+                <br>
+
+                <a href="/quiz" class="btn">
+                    Practice {{ subject[0] }}
+                </a>
+
+            </div>
+
+            <br>
+
+        {% endfor %}
+
+    {% else %}
+
+        <p>
+            🎉 No weak subjects detected.
+        </p>
+
+        <p>
+            Keep practicing to maintain your performance!
+        </p>
+
+    {% endif %}
+
+</section>
+    <br>
+
+
+    <a href="/quiz" class="btn">
+        🧠 Take Quiz
+    </a>
+
+    <a href="/dashboard" class="btn">
+        ← Dashboard
+    </a>
+
+</div>
+
+
+<footer>
+
+    <p>
+        © 2026 Placement Preparation Dashboard
+    </p>
+
+</footer>
+
+</body>
+
+</html>

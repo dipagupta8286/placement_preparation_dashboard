@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard - Placement Preparation Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #f4f6f8;
+        }
+
+        .admin-container {
+            width: 92%;
+            max-width: 1400px;
+            margin: 30px auto;
+        }
+
+        .admin-header {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+
+        .admin-header h1 {
+            margin: 0 0 8px 0;
+        }
+
+        .admin-header p {
+            margin: 0;
+            color: #666;
+        }
+
+        .logout-btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 18px;
+            background: #333;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+
+        /* STATISTICS */
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 22px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+
+        .stat-card h3 {
+            margin: 0 0 10px 0;
+            font-size: 17px;
+        }
+
+        .stat-card p {
+            font-size: 30px;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        /* SECTION */
+
+        .section {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+
+        .section h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        /* CODING CARDS */
+
+        .coding-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .coding-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        .coding-card h3 {
+            margin: 0 0 10px 0;
+        }
+
+        .coding-card p {
+            font-size: 28px;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        /* TABLE */
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background: #f1f1f1;
+        }
+
+        tr:hover {
+            background: #fafafa;
+        }
+
+        .empty-message {
+            text-align: center;
+            color: #777;
+            padding: 20px;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 900px) {
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .coding-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .stats-grid,
+            .coding-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .admin-container {
+                width: 94%;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="admin-container">
+
+
+    <!-- ========================= -->
+    <!-- ADMIN HEADER -->
+    <!-- ========================= -->
+
+    <div class="admin-header">
+
+        <h1>Admin Dashboard</h1>
+
+        <p>
+            Welcome, {{ session.get('admin_username', 'Admin') }}
+        </p>
+
+        <a href="{{ url_for('logout') }}"
+           class="logout-btn">
+            Logout
+        </a>
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- GENERAL STATISTICS -->
+    <!-- ========================= -->
+
+    <div class="stats-grid">
+
+        <div class="stat-card">
+            <h3>👨‍🎓 Total Students</h3>
+            <p>{{ total_students }}</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>🏢 Companies</h3>
+            <p>{{ total_companies }}</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>💻 Coding Problems</h3>
+            <p>{{ total_coding }}</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>⏰ Reminders</h3>
+            <p>{{ total_reminders }}</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>📝 Quiz Attempts</h3>
+            <p>{{ total_quizzes }}</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>📊 Average Quiz Score</h3>
+            <p>{{ average_quiz_score }}</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>🏆 Highest Quiz Score</h3>
+            <p>{{ highest_quiz_score }}</p>
+        </div>
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- CODING PERFORMANCE -->
+    <!-- ========================= -->
+
+    <div class="section">
+
+        <h2>💻 Coding Performance</h2>
+
+        <div class="coding-grid">
+
+            <div class="coding-card">
+                <h3>Total Problems</h3>
+                <p>{{ total_coding }}</p>
+            </div>
+
+            <div class="coding-card">
+                <h3>✅ Solved</h3>
+                <p>{{ solved_coding }}</p>
+            </div>
+
+            <div class="coding-card">
+                <h3>⏳ Pending</h3>
+                <p>{{ pending_coding }}</p>
+            </div>
+
+            <div class="coding-card">
+                <h3>🟢 Easy</h3>
+                <p>{{ easy_coding }}</p>
+            </div>
+
+            <div class="coding-card">
+                <h3>🟡 Medium</h3>
+                <p>{{ medium_coding }}</p>
+            </div>
+
+            <div class="coding-card">
+                <h3>🔴 Hard</h3>
+                <p>{{ hard_coding }}</p>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- TOP CODING STUDENTS -->
+    <!-- ========================= -->
+
+    <div class="section">
+
+        <h2>🏆 Top Coding Students</h2>
+
+        <div class="table-container">
+
+            <table>
+
+                <tr>
+                    <th>Student Name</th>
+                    <th>Solved Problems</th>
+                </tr>
+
+                {% for student in top_coding_students %}
+
+                <tr>
+                    <td>{{ student[0] }}</td>
+                    <td>{{ student[1] }}</td>
+                </tr>
+
+                {% else %}
+
+                <tr>
+                    <td colspan="2"
+                        class="empty-message">
+                        No coding data available.
+                    </td>
+                </tr>
+
+                {% endfor %}
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- CODING PLATFORM USAGE -->
+    <!-- ========================= -->
+
+    <div class="section">
+
+        <h2>🌐 Coding Platform Usage</h2>
+
+        <div class="table-container">
+
+            <table>
+
+                <tr>
+                    <th>Platform</th>
+                    <th>Number of Problems</th>
+                </tr>
+
+                {% for platform in platform_usage %}
+
+                <tr>
+                    <td>{{ platform[0] }}</td>
+                    <td>{{ platform[1] }}</td>
+                </tr>
+
+                {% else %}
+
+                <tr>
+                    <td colspan="2"
+                        class="empty-message">
+                        No platform data available.
+                    </td>
+                </tr>
+
+                {% endfor %}
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- RECENT CODING ACTIVITY -->
+    <!-- ========================= -->
+
+    <div class="section">
+
+        <h2>📝 Recent Coding Activity</h2>
+
+        <div class="table-container">
+
+            <table>
+
+                <tr>
+                    <th>Student</th>
+                    <th>Problem</th>
+                    <th>Platform</th>
+                    <th>Difficulty</th>
+                    <th>Status</th>
+                </tr>
+
+                {% for coding in recent_coding_activity %}
+
+                <tr>
+
+                    <td>{{ coding[0] }}</td>
+
+                    <td>{{ coding[1] }}</td>
+
+                    <td>{{ coding[2] }}</td>
+
+                    <td>{{ coding[3] }}</td>
+
+                    <td>{{ coding[4] }}</td>
+
+                </tr>
+
+                {% else %}
+
+                <tr>
+                    <td colspan="5"
+                        class="empty-message">
+                        No coding activity available.
+                    </td>
+                </tr>
+
+                {% endfor %}
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- STUDENT INFORMATION -->
+    <!-- ========================= -->
+
+    <div class="section">
+
+        <h2>👨‍🎓 Registered Students</h2>
+
+        <div class="table-container">
+
+            <table>
+
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>College</th>
+                    <th>Branch</th>
+                    <th>Semester</th>
+                </tr>
+
+                {% for student in students %}
+
+                <tr>
+
+                    <td>{{ student[0] }}</td>
+
+                    <td>{{ student[1] }}</td>
+
+                    <td>{{ student[2] }}</td>
+
+                    <td>{{ student[3] or '-' }}</td>
+
+                    <td>{{ student[4] or '-' }}</td>
+
+                    <td>{{ student[5] or '-' }}</td>
+
+                    <td>{{ student[6] or '-' }}</td>
+
+                </tr>
+
+                {% else %}
+
+                <tr>
+
+                    <td colspan="7"
+                        class="empty-message">
+                        No students registered.
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+</body>
+
+</html>

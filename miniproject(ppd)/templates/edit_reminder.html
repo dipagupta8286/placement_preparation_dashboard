@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Reminder</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<header>
+    <h1>Placement Preparation Dashboard</h1>
+
+    <nav>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/companies">Companies</a>
+        <a href="/coding-tracker">Coding Tracker</a>
+        <a href="/quiz">Aptitude Quiz</a>
+        <a href="/resume">Resume</a>
+        <a href="/reminders">Reminders</a>
+        <a href="/profile">Profile</a>
+        <a href="/logout">Logout</a>
+    </nav>
+</header>
+
+<div class="container">
+
+    <section class="hero">
+
+        <h2>✏️ Edit Reminder</h2>
+
+        <br>
+
+        <form method="POST">
+
+            <p>
+                <label>Reminder Title:</label>
+                <br>
+
+                <input
+                    type="text"
+                    name="title"
+                    value="{{ reminder[1] }}"
+                    required>
+            </p>
+
+            <br>
+
+            <p>
+                <label>Reminder Date:</label>
+                <br>
+
+                <input
+                    type="date"
+                    name="reminder_date"
+                    value="{{ reminder[2] }}"
+                    required>
+            </p>
+
+            <br>
+
+            <p>
+                <label>Status:</label>
+                <br>
+
+                <select name="status" required>
+
+                    <option value="Pending"
+                        {% if reminder[3] == "Pending" %}selected{% endif %}>
+                        Pending
+                    </option>
+
+                    <option value="Completed"
+                        {% if reminder[3] == "Completed" %}selected{% endif %}>
+                        Completed
+                    </option>
+
+                </select>
+            </p>
+
+            <br>
+
+            <button type="submit" class="btn">
+                Update Reminder
+            </button>
+
+            <a href="/reminders" class="btn">
+                Cancel
+            </a>
+
+        </form>
+
+    </section>
+
+</div>
+
+<footer>
+    <p>© 2026 Placement Preparation Dashboard</p>
+</footer>
+
+</body>
+</html>

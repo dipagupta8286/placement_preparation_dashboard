@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Student Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<header>
+
+    <h1>Placement Preparation Dashboard</h1>
+
+    <nav>
+
+        <a href="/dashboard">Dashboard</a>
+        <a href="/companies">Companies</a>
+        <a href="/coding-tracker">Coding Tracker</a>
+        <a href="/quiz">Aptitude Quiz</a>
+        <a href="/resume">Resume</a>
+        <a href="/reminders">Reminders</a>
+        <a href="/profile">Profile</a>
+        <a href="/logout">Logout</a>
+
+    </nav>
+
+</header>
+
+
+<div class="container">
+
+    <!-- WELCOME SECTION -->
+
+    <section class="hero">
+
+        <h2>
+            Welcome, {{ session["fullname"] }}! 🎓
+        </h2>
+
+        <p>
+            Track and manage your complete placement preparation.
+        </p>
+
+    </section>
+
+
+    <br>
+
+
+    <!-- STATISTICS -->
+
+    <div class="features">
+
+        <div class="feature-card">
+
+            <h3>🏢 Companies</h3>
+
+            <p style="font-size: 35px; font-weight: bold;">
+                {{ total_companies }}
+            </p>
+
+            <p>
+                Applications tracked
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <h3>💻 Coding</h3>
+
+            <p style="font-size: 35px; font-weight: bold;">
+                {{ total_coding }}
+            </p>
+
+            <p>
+                Problems tracked
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <h3>📝 Quiz</h3>
+
+            <p style="font-size: 35px; font-weight: bold;">
+                {{ latest_quiz_score }}
+            </p>
+
+            <p>
+                Latest aptitude score
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <h3>🔔 Reminders</h3>
+
+            <p style="font-size: 35px; font-weight: bold;">
+                {{ total_reminders }}
+            </p>
+
+            <p>
+                Tasks added
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <br>
+    <br>
+
+
+    <!-- OVERALL PROGRESS -->
+
+    <section class="hero">
+
+        <h2>
+            📊 Overall Placement Preparation
+        </h2>
+
+        <p style="
+            font-size: 42px;
+            font-weight: bold;
+            margin-top: 15px;
+        ">
+
+            {{ progress }}%
+
+        </p>
+
+
+        <div style="
+            width: 100%;
+            background-color: #ddd;
+            border-radius: 15px;
+            height: 30px;
+            margin-top: 20px;
+            overflow: hidden;
+        ">
+
+            <div style="
+                width: {{ progress }}%;
+                background-color: #1f4e79;
+                height: 30px;
+                border-radius: 15px;
+                transition: width 0.5s;
+            ">
+
+            </div>
+
+        </div>
+
+
+        <p style="margin-top: 20px;">
+
+            {% if progress == 0 %}
+
+                Start your placement preparation today! 🚀
+
+            {% elif progress < 50 %}
+
+                Keep going! You are getting started. 💪
+
+            {% elif progress < 100 %}
+
+                Good progress! Keep completing your preparation activities. 📚
+
+            {% else %}
+
+                Excellent! You have completed all preparation sections. 🎉
+
+            {% endif %}
+
+        </p>
+
+    </section>
+
+
+    <br>
+    <br>
+
+
+    <!-- MAIN FEATURES -->
+
+    <div class="features">
+
+
+        <!-- COMPANY -->
+
+        <div class="feature-card">
+
+            <h3>🏢 Company Tracker</h3>
+
+            <p>
+                Track companies, job roles and application status.
+            </p>
+
+            <br>
+
+            <a href="/companies" class="btn">
+                Open
+            </a>
+
+        </div>
+
+
+        <!-- CODING -->
+
+        <div class="feature-card">
+
+            <h3>💻 Coding Progress</h3>
+
+            <p>
+                Track coding problems, difficulty and solving status.
+            </p>
+
+            <br>
+
+            <a href="/coding-tracker" class="btn">
+                Open
+            </a>
+
+        </div>
+
+
+        <!-- QUIZ -->
+
+        <div class="feature-card">
+
+            <h3>📝 Aptitude Quiz</h3>
+
+            <p>
+                Practice aptitude questions and check your score.
+            </p>
+
+            <br>
+
+            <a href="/quiz" class="btn">
+                Take Quiz
+            </a>
+
+            <a href="/quiz-history" class="btn">
+                History
+            </a>
+
+        </div>
+
+
+        <!-- RESUME -->
+
+        <div class="feature-card">
+
+            <h3>📄 Resume</h3>
+
+            {% if resume_uploaded %}
+
+                <p>✅ Resume uploaded</p>
+
+                <a href="/resume" class="btn">
+                    Manage Resume
+                </a>
+
+            {% else %}
+
+                <p>⚠️ Resume not uploaded</p>
+
+                <a href="/resume" class="btn">
+                    Upload Resume
+                </a>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- PERFORMANCE ANALYTICS -->
+
+        <div class="feature-card">
+
+            <h3>📊 Performance Analytics</h3>
+
+            <p>
+                View your quiz performance and
+                subject-wise progress.
+            </p>
+
+            <br>
+
+            <a href="/analytics" class="btn">
+                View Analytics
+            </a>
+
+        </div>
+
+
+        <!-- REMINDERS -->
+
+        <div class="feature-card">
+
+            <h3>🔔 Reminders</h3>
+
+            <p>
+                Manage important placement deadlines and tasks.
+            </p>
+
+            <br>
+
+            <a href="/reminders" class="btn">
+                Open
+            </a>
+
+        </div>
+
+
+        <!-- PROFILE -->
+
+        <div class="feature-card">
+
+            <h3>👤 My Profile</h3>
+
+            <p>
+                View your personal and academic information.
+            </p>
+
+            <br>
+
+            <a href="/profile" class="btn">
+                Open
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- RECENT ACTIVITY -->
+
+<section class="hero">
+
+    <h2>📌 Recent Placement Activity</h2>
+
+    <br>
+
+    <div class="features">
+
+        <!-- RECENT COMPANY -->
+
+        <div class="feature-card">
+
+            <h3>🏢 Recent Company</h3>
+
+            {% if recent_company %}
+
+                <p>
+                    <strong>Company:</strong>
+                    {{ recent_company[0] }}
+                </p>
+
+                <p>
+                    <strong>Role:</strong>
+                    {{ recent_company[1] }}
+                </p>
+
+                <p>
+                    <strong>Status:</strong>
+                    {{ recent_company[2] }}
+                </p>
+
+            {% else %}
+
+                <p>
+                    No company added yet.
+                </p>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- RECENT CODING -->
+
+        <div class="feature-card">
+
+            <h3>💻 Recent Coding</h3>
+
+            {% if recent_coding %}
+
+                <p>
+                    <strong>Problem:</strong>
+                    {{ recent_coding[0] }}
+                </p>
+
+                <p>
+                    <strong>Platform:</strong>
+                    {{ recent_coding[1] }}
+                </p>
+
+                <p>
+                    <strong>Difficulty:</strong>
+                    {{ recent_coding[2] }}
+                </p>
+
+                <p>
+                    <strong>Status:</strong>
+                    {{ recent_coding[3] }}
+                </p>
+
+            {% else %}
+
+                <p>
+                    No coding problem added yet.
+                </p>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- LATEST QUIZ -->
+
+        <div class="feature-card">
+
+            <h3>📝 Latest Quiz</h3>
+
+            {% if recent_quiz %}
+
+                <p>
+                    <strong>Score:</strong>
+                    {{ recent_quiz[0] }}/{{ recent_quiz[1] }}
+                </p>
+
+                <p>
+                    <strong>Date:</strong>
+                    {{ recent_quiz[2] }}
+                </p>
+
+            {% else %}
+
+                <p>
+                    No quiz attempted yet.
+                </p>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- UPCOMING REMINDER -->
+
+        <div class="feature-card">
+
+            <h3>🔔 Upcoming Reminder</h3>
+
+            {% if upcoming_reminder %}
+
+                <p>
+                    <strong>Task:</strong>
+                    {{ upcoming_reminder[0] }}
+                </p>
+
+                <p>
+                    <strong>Date:</strong>
+                    {{ upcoming_reminder[1] }}
+                </p>
+
+                <p>
+                    <strong>Status:</strong>
+                    {{ upcoming_reminder[2] }}
+                </p>
+
+            {% else %}
+
+                <p>
+                    No reminders added yet.
+                </p>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</section>
+
+<br>
+<br>
+
+<footer>
+
+    <p>
+        © 2026 Placement Preparation Dashboard
+    </p>
+
+</footer>
+
+
+</body>
+</html>

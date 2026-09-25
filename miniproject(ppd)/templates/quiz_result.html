@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz Result</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<header>
+    <h1>Placement Preparation Dashboard</h1>
+
+    <nav>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/companies">Companies</a>
+        <a href="/coding-tracker">Coding Tracker</a>
+        <a href="/quiz">Aptitude Quiz</a>
+        <a href="/resume">Resume</a>
+        <a href="/reminders">Reminders</a>
+        <a href="/profile">Profile</a>
+        <a href="/logout">Logout</a>
+    </nav>
+</header>
+
+<div class="container">
+
+    <section class="hero">
+
+        <h2>🎉 Quiz Completed!</h2>
+
+        <br>
+
+        <h3>Your Score</h3>
+
+        <h1>
+            {{ score }} / {{ total_questions }}
+        </h1>
+
+        <br>
+
+        <h3>
+            Percentage: {{ percentage }}%
+        </h3>
+
+        <br><br>
+
+        {% if percentage >= 80 %}
+
+            <p>🌟 Excellent performance!</p>
+
+        {% elif percentage >= 60 %}
+
+            <p>👍 Good performance! Keep practicing.</p>
+
+        {% elif percentage >= 40 %}
+
+            <p>📚 Keep practicing to improve your score.</p>
+
+        {% else %}
+
+            <p>💪 Don't give up! Practice more and try again.</p>
+
+        {% endif %}
+
+        <br><br>
+
+        <a href="/quiz" class="btn">
+            🔄 Take Another Quiz
+        </a>
+
+        <a href="/quiz-history" class="btn">
+            📊 View Quiz History
+        </a>
+
+        <a href="/dashboard" class="btn">
+            ← Dashboard
+        </a>
+
+    </section>
+
+</div>
+
+<footer>
+    <p>© 2026 Placement Preparation Dashboard</p>
+</footer>
+
+</body>
+</html>

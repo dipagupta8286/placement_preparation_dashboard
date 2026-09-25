@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz History</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<header>
+    <h1>Placement Preparation Dashboard</h1>
+
+    <nav>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/companies">Companies</a>
+        <a href="/coding-tracker">Coding Tracker</a>
+        <a href="/quiz">Aptitude Quiz</a>
+        <a href="/resume">Resume</a>
+        <a href="/reminders">Reminders</a>
+        <a href="/profile">Profile</a>
+        <a href="/logout">Logout</a>
+    </nav>
+</header>
+
+<div class="container">
+
+    <section class="hero">
+
+        <h2>📊 Quiz History</h2>
+
+        <p>
+            View your previous quiz attempts and performance.
+        </p>
+
+    </section>
+
+    <br>
+
+    {% if history %}
+
+    <section class="hero">
+
+        <table border="1" width="100%" cellpadding="10">
+
+            <thead>
+                <tr>
+                    <th>Subject</th>
+                    <th>Difficulty</th>
+                    <th>Score</th>
+                    <th>Percentage</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for quiz in history %}
+
+                <tr>
+
+                    <td>
+                        {{ quiz[3] or "All" }}
+                    </td>
+
+                    <td>
+                        {{ quiz[4] or "All" }}
+                    </td>
+
+                    <td>
+                        {{ quiz[0] }} / {{ quiz[1] }}
+                    </td>
+
+                    <td>
+                        {% if quiz[1] > 0 %}
+                            {{ ((quiz[0] / quiz[1]) * 100)|round|int }}%
+                        {% else %}
+                            0%
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        {{ quiz[2].strftime("%d-%m-%Y %H:%M") }}
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </section>
+
+    {% else %}
+
+    <section class="hero">
+
+        <h3>📚 No Quiz Attempts Yet</h3>
+
+        <p>
+            Start a quiz to see your performance history here.
+        </p>
+
+    </section>
+
+    {% endif %}
+
+    <br>
+
+    <a href="/quiz" class="btn">
+        🧠 Take Quiz
+    </a>
+
+    <a href="/dashboard" class="btn">
+        ← Dashboard
+    </a>
+
+</div>
+
+<footer>
+    <p>© 2026 Placement Preparation Dashboard</p>
+</footer>
+
+</body>
+</html>

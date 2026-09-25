@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Edit Company</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<header>
+
+    <h1>Placement Preparation Dashboard</h1>
+
+    <nav>
+
+        <a href="/dashboard">Dashboard</a>
+        <a href="/companies">Companies</a>
+        <a href="/coding-tracker">Coding Tracker</a>
+        <a href="/quiz">Aptitude Quiz</a>
+        <a href="/resume">Resume</a>
+        <a href="/reminders">Reminders</a>
+        <a href="/profile">Profile</a>
+        <a href="/logout">Logout</a>
+
+    </nav>
+
+</header>
+
+
+<div class="container">
+
+    <section class="hero">
+
+        <h2>✏️ Edit Company Application</h2>
+
+        <p>
+            Update your company application details.
+        </p>
+
+        <br>
+
+
+        <form method="POST">
+
+            <!-- COMPANY -->
+
+            <p>
+
+                <label>
+                    Company Name:
+                </label>
+
+                <br>
+
+                <input
+                    type="text"
+                    name="company"
+                    value="{{ company[1] }}"
+                    required
+                >
+
+            </p>
+
+            <br>
+
+
+            <!-- ROLE -->
+
+            <p>
+
+                <label>
+                    Job Role:
+                </label>
+
+                <br>
+
+                <input
+                    type="text"
+                    name="role"
+                    value="{{ company[2] }}"
+                    required
+                >
+
+            </p>
+
+            <br>
+
+
+            <!-- STATUS -->
+
+            <p>
+
+                <label>
+                    Application Status:
+                </label>
+
+                <br>
+
+                <select name="status" required>
+
+                    <option
+                        value="Interested"
+                        {% if company[3] == "Interested" %}
+                        selected
+                        {% endif %}
+                    >
+                        Interested
+                    </option>
+
+                    <option
+                        value="Applied"
+                        {% if company[3] == "Applied" %}
+                        selected
+                        {% endif %}
+                    >
+                        Applied
+                    </option>
+
+                    <option
+                        value="Interview"
+                        {% if company[3] == "Interview" %}
+                        selected
+                        {% endif %}
+                    >
+                        Interview
+                    </option>
+
+                    <option
+                        value="Selected"
+                        {% if company[3] == "Selected" %}
+                        selected
+                        {% endif %}
+                    >
+                        Selected
+                    </option>
+
+                    <option
+                        value="Rejected"
+                        {% if company[3] == "Rejected" %}
+                        selected
+                        {% endif %}
+                    >
+                        Rejected
+                    </option>
+
+                </select>
+
+            </p>
+
+            <br>
+
+
+            <button
+                type="submit"
+                class="btn"
+            >
+                Update Company
+            </button>
+
+
+            <a
+                href="/companies"
+                class="btn"
+            >
+                Cancel
+            </a>
+
+        </form>
+
+    </section>
+
+</div>
+
+
+<footer>
+
+    <p>
+        © 2026 Placement Preparation Dashboard
+    </p>
+
+</footer>
+
+
+</body>
+
+</html>

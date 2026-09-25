@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register - Placement Preparation Dashboard</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<header>
+    <h1>Placement Preparation Dashboard</h1>
+
+    <nav>
+        <a href="/">Home</a>
+        <a href="/login">Login</a>
+    </nav>
+</header>
+
+<div class="container">
+
+    <section class="hero">
+
+        <h2>Create Student Account</h2>
+
+        <p>Register to start your placement preparation.</p>
+
+        <form method="POST">
+
+            <p>
+                <label>Full Name:</label><br>
+                <input type="text" name="fullname" required>
+            </p>
+
+            <br>
+
+            <p>
+                <label>Email:</label><br>
+                <input type="email" name="email" required>
+            </p>
+
+            <br>
+
+            <p>
+                <label>Phone Number:</label><br>
+                <input type="tel" name="phone" required>
+            </p>
+
+            <br>
+
+            <p>
+                <label>College:</label><br>
+                <input type="text" name="college" required>
+            </p>
+
+            <br>
+
+            <p>
+                <label>Branch:</label><br>
+                <input type="text" name="branch" required>
+            </p>
+
+            <br>
+
+            <p>
+                <label>Semester:</label><br>
+                <select name="semester" required>
+                    <option value="">Select Semester</option>
+                    <option value="5">Semester 5</option>
+                    <option value="6">Semester 6</option>
+                </select>
+            </p>
+
+            <br>
+
+            <p>
+                <label>Password:</label><br>
+                <input type="password" name="password" required>
+            </p>
+
+            <br>
+
+            <p>
+                <label>Confirm Password:</label><br>
+                <input type="password" name="confirm_password" required>
+            </p>
+
+            <br>
+
+            <button type="submit" class="btn">Register</button>
+
+        </form>
+
+        <br>
+
+        <p>
+            Already have an account?
+            <a href="/login">Login here</a>
+        </p>
+
+    </section>
+
+</div>
+
+<footer>
+    <p>© 2026 Placement Preparation Dashboard</p>
+</footer>
+
+</body>
+</html>

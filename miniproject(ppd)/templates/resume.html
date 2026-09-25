@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Resume Management</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<header>
+
+    <h1>Placement Preparation Dashboard</h1>
+
+    <nav>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/companies">Companies</a>
+        <a href="/coding-tracker">Coding Tracker</a>
+        <a href="/quiz">Aptitude Quiz</a>
+        <a href="/resume">Resume</a>
+        <a href="/logout">Logout</a>
+    </nav>
+
+</header>
+
+
+<div class="container">
+
+    <section class="hero">
+
+        <h2>📄 Resume Management</h2>
+
+        <p>
+            Upload and manage your latest resume.
+        </p>
+
+        <br>
+
+        <form method="POST"
+              action="/resume"
+              enctype="multipart/form-data">
+
+            <p>
+                <label>Select Resume:</label>
+            </p>
+
+            <br>
+
+            <input type="file"
+                   name="resume"
+                   accept=".pdf,.doc,.docx"
+                   required>
+
+            <br><br>
+
+            <button type="submit"
+                    class="btn">
+                Upload Resume
+            </button>
+
+        </form>
+
+        <br>
+
+        <p>
+            Supported formats: PDF, DOC, DOCX
+        </p>
+
+        <br>
+        <a href="{{ url_for('download_resume') }}"
+           class="btn">
+            Download My Resume
+        </a>
+        <br><br>
+        <a href="/dashboard"
+           class="btn">
+            ← Back to Dashboard
+        </a>
+
+    </section>
+
+</div>
+
+
+<footer>
+
+    <p>
+        © 2026 Placement Preparation Dashboard
+    </p>
+
+</footer>
+
+</body>
+
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Profile</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<header>
+    <h1>Placement Preparation Dashboard</h1>
+
+    <nav>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/companies">Companies</a>
+        <a href="/coding-tracker">Coding Tracker</a>
+        <a href="/quiz">Aptitude Quiz</a>
+        <a href="/resume">Resume</a>
+        <a href="/reminders">Reminders</a>
+        <a href="/profile">Profile</a>
+        <a href="/logout">Logout</a>
+    </nav>
+</header>
+
+<div class="container">
+
+    <section class="hero">
+
+        <h2>👤 My Profile</h2>
+
+        <br>
+
+        <form method="POST">
+
+            <p>
+                <label>Full Name:</label>
+                <br>
+
+                <input
+                    type="text"
+                    name="fullname"
+                    value="{{ student[1] }}"
+                    required>
+            </p>
+
+            <br>
+
+            <p>
+                <label>Email:</label>
+                <br>
+
+                <input
+                    type="email"
+                    value="{{ student[2] }}"
+                    readonly>
+            </p>
+
+            <br>
+
+            <p>
+                <label>Phone:</label>
+                <br>
+
+                <input
+                    type="text"
+                    name="phone"
+                    value="{{ student[3] or '' }}">
+            </p>
+
+            <br>
+
+            <p>
+                <label>College:</label>
+                <br>
+
+                <input
+                    type="text"
+                    name="college"
+                    value="{{ student[4] or '' }}">
+            </p>
+
+            <br>
+
+            <p>
+                <label>Branch:</label>
+                <br>
+
+                <input
+                    type="text"
+                    name="branch"
+                    value="{{ student[5] or '' }}">
+            </p>
+
+            <br>
+
+            <p>
+                <label>Semester:</label>
+                <br>
+
+                <input
+                    type="text"
+                    name="semester"
+                    value="{{ student[6] or '' }}">
+            </p>
+
+            <br>
+
+            <button type="submit" class="btn">
+                Update Profile
+            </button>
+
+            <a href="/dashboard" class="btn">
+                ← Back to Dashboard
+            </a>
+
+        </form>
+
+    </section>
+
+</div>
+
+<footer>
+    <p>© 2026 Placement Preparation Dashboard</p>
+</footer>
+
+</body>
+</html>

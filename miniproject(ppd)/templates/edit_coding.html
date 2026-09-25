@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Edit Coding Problem</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<header>
+
+    <h1>Placement Preparation Dashboard</h1>
+
+    <nav>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/companies">Companies</a>
+        <a href="/coding-tracker">Coding Tracker</a>
+        <a href="/quiz">Aptitude Quiz</a>
+        <a href="/resume">Resume</a>
+        <a href="/reminders">Reminders</a>
+        <a href="/profile">Profile</a>
+        <a href="/logout">Logout</a>
+    </nav>
+
+</header>
+
+
+<div class="container">
+
+    <section class="hero">
+
+        <h2>✏️ Edit Coding Problem</h2>
+
+        <p>
+            Update your coding practice details.
+        </p>
+
+        <br>
+
+        <form method="POST">
+
+            <p>
+                <label>Problem Name:</label>
+                <br>
+
+                <input
+                    type="text"
+                    name="problem"
+                    value="{{ problem[1] }}"
+                    required
+                >
+            </p>
+
+            <br>
+
+            <p>
+                <label>Platform:</label>
+                <br>
+
+                <input
+                    type="text"
+                    name="platform"
+                    value="{{ problem[2] }}"
+                    required
+                >
+            </p>
+
+            <br>
+
+            <p>
+                <label>Difficulty:</label>
+                <br>
+
+                <select name="difficulty" required>
+
+                    <option value="Easy"
+                        {% if problem[3] == "Easy" %}
+                        selected
+                        {% endif %}>
+                        Easy
+                    </option>
+
+                    <option value="Medium"
+                        {% if problem[3] == "Medium" %}
+                        selected
+                        {% endif %}>
+                        Medium
+                    </option>
+
+                    <option value="Hard"
+                        {% if problem[3] == "Hard" %}
+                        selected
+                        {% endif %}>
+                        Hard
+                    </option>
+
+                </select>
+
+            </p>
+
+            <br>
+
+            <p>
+                <label>Status:</label>
+                <br>
+
+                <select name="status" required>
+
+                    <option value="Not Started"
+                        {% if problem[4] == "Not Started" %}
+                        selected
+                        {% endif %}>
+                        Not Started
+                    </option>
+
+                    <option value="In Progress"
+                        {% if problem[4] == "In Progress" %}
+                        selected
+                        {% endif %}>
+                        In Progress
+                    </option>
+
+                    <option value="Solved"
+                        {% if problem[4] == "Solved" %}
+                        selected
+                        {% endif %}>
+                        Solved
+                    </option>
+
+                </select>
+
+            </p>
+
+            <br>
+
+            <button type="submit" class="btn">
+                Update Problem
+            </button>
+
+            <a href="/coding-tracker" class="btn">
+                Cancel
+            </a>
+
+        </form>
+
+    </section>
+
+</div>
+
+
+<footer>
+
+    <p>
+        © 2026 Placement Preparation Dashboard
+    </p>
+
+</footer>
+
+</body>
+
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Aptitude & Technical Quiz</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<header>
+    <h1>Placement Preparation Dashboard</h1>
+
+    <nav>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/companies">Companies</a>
+        <a href="/coding-tracker">Coding Tracker</a>
+        <a href="/quiz">Aptitude Quiz</a>
+        <a href="/resume">Resume</a>
+        <a href="/reminders">Reminders</a>
+        <a href="/profile">Profile</a>
+        <a href="/logout">Logout</a>
+    </nav>
+</header>
+
+<div class="container">
+
+{% if not quiz_started %}
+
+    <!-- QUIZ SELECTION -->
+
+    <section class="hero">
+
+        <h2>🧠 Placement Quiz</h2>
+
+        <p>
+            Practice technical and interview questions.
+        </p>
+
+        <br>
+
+        <form method="POST">
+
+            <p>
+                <label><strong>Select Subject:</strong></label>
+                <br><br>
+
+                <select name="subject" required>
+
+                    <option value="All">
+                        All Subjects
+                    </option>
+
+                    {% for subject in subjects %}
+
+                        <option value="{{ subject }}">
+                            {{ subject }}
+                        </option>
+
+                    {% endfor %}
+
+                </select>
+            </p>
+
+            <br>
+
+            <p>
+                <label><strong>Select Difficulty:</strong></label>
+                <br><br>
+
+                <select name="difficulty" required>
+
+                    <option value="All">
+                        All Levels
+                    </option>
+
+                    <option value="Easy">
+                        🟢 Easy
+                    </option>
+
+                    <option value="Medium">
+                        🟡 Medium
+                    </option>
+
+                    <option value="Hard">
+                        🔴 Hard
+                    </option>
+
+                </select>
+            </p>
+
+            <br>
+
+            <button type="submit" class="btn">
+                Start Quiz
+            </button>
+
+        </form>
+
+    </section>
+
+{% else %}
+
+    <!-- QUIZ QUESTIONS -->
+
+    <section class="hero">
+
+        <h2>🧠 Placement Quiz</h2>
+
+        <p>
+            Subject: <strong>{{ subject }}</strong>
+        </p>
+       <div id="timer"
+              style="font-size: 24px; font-weight: bold;">
+              ⏱️ Time Left: 05:00
+       </div>
+        <p>
+            Difficulty: <strong>{{ difficulty }}</strong>
+        </p>
+
+        <p>
+            Total Questions: <strong>{{ questions|length }}</strong>
+        </p>
+
+    </section>
+
+    <br>
+
+    <form method="POST"
+       action="/quiz-submit">
+       <input type="hidden" name="subject" value="{{ subject }}">
+       <input type="hidden" name="difficulty" value="{{ difficulty }}">
+        {% for question in questions %}
+
+        <section class="hero">
+
+            <h3>
+                Question {{ loop.index }}
+            </h3>
+
+            <p>
+                <strong>
+                    {{ question[2] }}
+                </strong>
+            </p>
+
+            <br>
+
+            <label>
+                <input type="radio"
+                       name="q{{ question[0] }}"
+                       value="A"
+                       required>
+
+                {{ question[3] }}
+            </label>
+
+            <br><br>
+
+            <label>
+                <input type="radio"
+                       name="q{{ question[0] }}"
+                       value="B">
+
+                {{ question[4] }}
+            </label>
+
+            <br><br>
+
+            <label>
+                <input type="radio"
+                       name="q{{ question[0] }}"
+                       value="C">
+
+                {{ question[5] }}
+            </label>
+
+            <br><br>
+
+            <label>
+                <input type="radio"
+                       name="q{{ question[0] }}"
+                       value="D">
+
+                {{ question[6] }}
+            </label>
+
+        </section>
+
+        <br>
+
+        {% endfor %}
+
+        <section class="hero">
+
+            <button type="submit" class="btn">
+                Submit Quiz
+            </button>
+
+        </section>
+
+    </form>
+
+{% endif %}
+
+</div>
+
+<footer>
+    <p>© 2026 Placement Preparation Dashboard</p>
+</footer>
+<script>
+
+let timeLeft = 5 * 60;
+
+const timer = document.getElementById("timer");
+const quizForm = document.querySelector(
+    'form[action="/quiz-submit"]'
+);
+
+const countdown = setInterval(function () {
+
+    let minutes = Math.floor(timeLeft / 60);
+    let seconds = timeLeft % 60;
+
+    seconds = seconds < 10 ? "0" + seconds : seconds;
+
+    timer.innerHTML =
+        "⏱️ Time Left: " + minutes + ":" + seconds;
+
+    if (timeLeft <= 0) {
+
+        clearInterval(countdown);
+
+        timer.innerHTML = "⏰ Time's Up!";
+
+        quizForm.submit();
+    }
+
+    timeLeft--;
+
+}, 1000);
+
+</script>
+</body>
+</html>
